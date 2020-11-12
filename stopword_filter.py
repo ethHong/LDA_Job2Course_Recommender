@@ -30,13 +30,14 @@ def filter_stopwords(doc, sw):
     return " ".join(filtered)
 
 
-def cleanse(string):
+def cleanse(string, stem_words = True):
     try:
         cleansed = " ".join(string.rsplit("\\n"))
         cleansed = re.sub('[^A-Za-z]+', ' ', cleansed).lower()
         cleansed = filter_stopwords(cleansed, sw)
 
-        cleansed = stem_word(cleansed)
+        if stem_words == True:
+            cleansed = stem_word(cleansed)
 
         return cleansed
     except:

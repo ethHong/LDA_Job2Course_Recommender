@@ -88,9 +88,6 @@ def tuning_topics(data, p):
     plt.show()
 
 
-
-
-
 def jsd(query, matrix):
     scores = []
     for i in range(0, matrix.shape[0]):
