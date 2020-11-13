@@ -38,9 +38,9 @@ result.reset_index(drop = True, inplace = True)
 
 print (result)
 
-first = input("Choose index of first JD you are interested: ")
-second = input("Choose index of second JD you are interested: ")
-third = input("Choose index of third JD you are interested: ")
+first = input("관심있는 첫번째 JD의 Index를 넣어주세요! - Choose index of first JD you are interested: ")
+second = input("관심있는 두번째 JD의 Index를 넣어주세요! - Choose index of second JD you are interested: ")
+third = input("관심있는 세번째 JD의 Index를 넣어주세요! - Choose index of third JD you are interested: ")
 
 target = result.iloc[[int(first), int(second), int(third)]]
 target_doc = target["Job_Details"].values.sum().split()
@@ -71,3 +71,4 @@ data["distance_with_JD"] = index_to_score
 result = data[["Course_Name", "tokenized", "div", "distance_with_JD"]].sort_values(by = "distance_with_JD")[:10]
 
 print (result)
+

@@ -38,7 +38,7 @@ class JDcrawler_recommender():
         self.company = input("관심있는 기업을 입력해주세요 (없으면 Enter 입력)")
         self.job = input("관심있는 직무 입력해주세요(없으면 Enter 입력)")
 
-        self.keyword = "-".join((self.industry + " " + self.company + " " + self.job).split()).lower()
+        self.keyword = ",".join((self.industry + " " + self.company + " " + self.job).split()).lower()
 
     def load_processed(self):
         processed = pd.read_csv(
