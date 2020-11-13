@@ -6,7 +6,7 @@
 Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce between each courses job description of user's input
 
 ## Desctipion
-* Use main_modeling.py to run the program. The program initialize by asking ID, PASSWIRD if linkeding for JD access
+* Use program_main.py to run the program. The program initialize by asking ID, PASSWIRD if linkeding for JD access
 * Put Industry, Career position (job title) and company of interest
 * The program will proceed collecting some of recent relevant JDs, and let you choose top 3 you prefer
 * Based on JDs you choose, the model will recommend top 10 courses from Yonsei University UIC Course (2015 ~ 2020)
