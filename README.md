@@ -5,6 +5,10 @@
 ## How it works
 Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce between each courses job description of user's input
 
+![Current](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Model/Current.png)
+
+
+
 ## Desctipion
 * Use program_main.py to run the program. The program initialize by asking ID, PASSWIRD if linkeding for JD access
 * Put Industry, Career position (job title) and company of interest
@@ -16,3 +20,5 @@ Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce
 * Problem of Crawler's unstableness
 * Range of Job Descriptions searched by keyword is too broad
 * Looking for ways to recommend 'portfolio' of classed, by giving weights to three factors as different dimension: Company, Industry, and Job title
+* To improve user experience: trying to work on building DB, and add metadata as tag
+  ![Update](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Model/Update.png)
