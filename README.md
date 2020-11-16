@@ -5,7 +5,7 @@
 ## How it works
 Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce between each courses job description of user's input
 
-![Current](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Model/Current.png)
+![Current](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Current.png)
 
 
 
@@ -21,4 +21,4 @@ Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce
 * Range of Job Descriptions searched by keyword is too broad
 * Looking for ways to recommend 'portfolio' of classed, by giving weights to three factors as different dimension: Company, Industry, and Job title
 * To improve user experience: trying to work on building DB, and add metadata as tag
-  ![Update](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Model/Update.png)
+  ![Update](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Update.png)
