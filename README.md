@@ -21,4 +21,4 @@ Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce
 * Range of Job Descriptions searched by keyword is too broad
 * Looking for ways to recommend 'portfolio' of classed, by giving weights to three factors as different dimension: Company, Industry, and Job title
 * To improve user experience: trying to work on building DB, and add metadata as tag
-  ![Update](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Update.png)
+![Update](https://user-images.githubusercontent.com/43837843/99258418-e3910880-285b-11eb-9f51-af74bf972020.png)
