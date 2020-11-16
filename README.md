@@ -5,7 +5,7 @@
 ## How it works
 Using LDA and Jensen Shannen Divergence, this projects tries to conpute disatnce between each courses job description of user's input
 
-![Current](/Users/HongSukhyun/Desktop/GitHub/-Course-Recommentation-Project/image/Current.png)
+![Current](https://user-images.githubusercontent.com/43837843/99258349-c78d6700-285b-11eb-8b48-203647830d03.png)
 
 
 
