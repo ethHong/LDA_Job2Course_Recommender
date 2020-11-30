@@ -27,16 +27,10 @@ data["tokenized"] = data["tokenized"].apply(literal_eval)
 
 from process_DB import dir, enhance_db, relevance_query, wn
 
-include_meta = input("Include Metadata?: y/n")
 
-if include_meta == "y":
-    # DB = pd.read_csv(dir+"/DB_updated_metatags_40thred.csv").dropna()
-    DB = pd.read_csv(dir + "/DB_updated_metatags.csv").dropna()
-else:
-    DB = pd.read_csv(dir + "/Database.csv").dropna()
-
+DB = pd.read_csv(dir + "/Database.csv").dropna()
 DB["tokenized"] = DB["tokenized"].apply(literal_eval)
-DB["Metatag"] = DB["Metatag"].apply(literal_eval)
+
 
 print("DB에서 관련 Job Description 을 조회중입니다...")
 keyword = recommender.keyword
@@ -57,12 +51,6 @@ else:
 
 key_positions = target["Position"].values
 target_doc = target["Job_Details"].values.sum().split()
-
-if include_meta == "y":
-    for j in target["Metatag"].values:
-        for i in j:
-            target_doc.append(i)
-
 
 def process_filter(target):
     target = " ".join([i.lower() for i in target])
