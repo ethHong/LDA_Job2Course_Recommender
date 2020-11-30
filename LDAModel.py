@@ -8,8 +8,12 @@ from gensim.models.coherencemodel import CoherenceModel
 import matplotlib.pyplot as plt
 from scipy.stats import entropy
 import numpy as np
+from gensim.models.callbacks import PerplexityMetric
+from gensim.test.utils import common_corpus, common_dictionary
 
-def train_lda(data, num_topics = 10, chunksize = 500, alpha ="auto", eta = "auto", passes = 25):
+
+def train_lda(data, num_topics = 10, chunksize = 500, alpha ="auto", eta = "auto", passes = 2):
+
     num_topics = num_topics
     chunksize = chunksize
     dictionary = corpora.Dictionary(data['tokenized'])
@@ -97,5 +101,17 @@ def jsd(query, matrix):
 
         jensen = np.sqrt(0.5 * (entropy(p, m)) + 0.5 * entropy(q, m))
         scores.append(jensen)
+
+    return scores
+
+def KL(query, matrix):
+    scores = []
+    for i in range(0, matrix.shape[0]):
+        p = query
+        q = matrix.T[:, i]
+
+
+        KL = entropy(p, q)
+        scores.append(KL)
 
     return scores

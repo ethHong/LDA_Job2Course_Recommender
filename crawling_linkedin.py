@@ -15,34 +15,32 @@ from fake_useragent import UserAgent
 from tqdm.notebook import trange
 import time
 
-
 class JDcrawler_recommender():
 
-    def __init__(self, name, driverpath, driver, options):
+    def __init__(self, name, driverpath, options, driver):
         print("크롤러 초기 설정중...")
-        self.ID = input("ID:")
-        self.PASS = input("PASS: ")
+        #self.ID = input("ID:")
+        #self.PASS = input("PASS: ")
+
         self.driverpath = driverpath
-        self.driver = driver
         self.options = options
+        self.driver = driver
+
         self.name = name
 
         print("안녕하세요 {}님, 당신의 직무, 커리어 관심도에 따른 수업 추천을 해드리겠습니다.".format(name))
-        print("1. 먼저 관심있는 기업 / 직무 / 산업분야를 질문에 따라 순서대로 입력하세요. '무관' 한 분야는 스킵하셔도 됩니다.")
+        print("1. 먼저 관심있는 커리어 키워드를 입력하세요")
         print("2. 이후 입력한 내용에 따라 10개의 Job Description 이 노출됩니다. 이중 마음에 드는 3개를 고르세요!")
         print("3. 이 결과를 바탕으로 수업을 추천해드립니다")
         print("**모든 검색어는 영문으로 입력하셔야 합니다!**")
-
+        self.division = input("Division 을 입력해주세요 (예: CTM, STP 등)")
         self.topicnum = input("초기 토픽 갯수 설정 (25, 40, 50중 입력): ")
-        self.industry = input("관심있는 산업을 입력해주세요 (없으면 Enter 입력)")
-        self.company = input("관심있는 기업을 입력해주세요 (없으면 Enter 입력)")
-        self.job = input("관심있는 직무 입력해주세요(없으면 Enter 입력)")
-
-        self.keyword = ",".join((self.industry + " " + self.company + " " + self.job).split()).lower()
+        self.keyword = input("관심있는 키워드를 입력해주세요 (없으면 Enter 입력)")
+        self.keyword = ",".join(self.keyword.split()).lower()
 
     def load_processed(self):
-        processed = pd.read_csv(
-            os.getcwd() + "/train_dataset" + "/processed_courses_data_{}topic.csv".format(self.topicnum))
+        processed = pd.read_csv(os.getcwd() + "/train_dataset" + "/processed_courses_data_{}topic.csv".format(self.topicnum))
+
         return processed
 
     def mock_user_agent(self):
@@ -57,6 +55,8 @@ class JDcrawler_recommender():
 
     def login_linkedin(self):
 
+        self.ID = input("ID:")
+        self.PASS = input("PASS: ")
         self.options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
         userAgent = self.mock_user_agent()
@@ -151,6 +151,7 @@ class JDcrawler_recommender():
         self.driver.get(start_url)
         self.driver.implicitly_wait(10)
         time.sleep(3)
+
         pages = self.refresh_source_pages()[0]
         soup = self.refresh_source_pages()[1]
 
@@ -211,7 +212,7 @@ class JDcrawler_recommender():
         link = header + self.refine(keyword)
         self.driver.get(link)
 
-        time.sleep(2)
+        time.sleep(3)
         # 밑에 self함수 불러와서 크롤
         html = self.driver.page_source
         soup = BeautifulSoup(html, "html.parser")
@@ -224,9 +225,9 @@ class JDcrawler_recommender():
 
         df = pd.DataFrame()
         count = df.shape[0]
+
         for i in trange(total_page // how_many):
             while count < counts - 1:
-
                 starting_page_num = 1 + (3 * i)
 
                 try:
