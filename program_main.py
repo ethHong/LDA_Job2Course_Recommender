@@ -1,25 +1,13 @@
 import os
-import sys
 from ast import literal_eval
 import numpy as np
 import pandas as pd
-from selenium import webdriver
-from crawling_linkedin import JDcrawler_recommender
+from crawling_linkedin import recommender_class
 from stopword_filter import filter_stopwords, cleanse, sw, divterms, divcats, tfidf_matrix, tfidf
 from sklearn.preprocessing import MinMaxScaler
 
-platform = sys.platform
-
-if platform == "win32":
-    driverpath = os.getcwd() + "/chromedriver_win"
-else:
-    driverpath = os.getcwd() + "/chromedriver"
-
-options = webdriver.ChromeOptions()
-driver = webdriver.Chrome(driverpath, chrome_options=options)
-
 username = input("User Name")
-recommender = JDcrawler_recommender(username, driverpath, options, driver)
+recommender = recommender_class(username)
 
 data = recommender.load_processed()
 
@@ -28,7 +16,7 @@ data["tokenized"] = data["tokenized"].apply(literal_eval)
 from process_DB import dir, enhance_db, relevance_query, wn
 
 
-DB = pd.read_csv(dir + "/Database.csv").dropna()
+DB = pd.read_csv(dir + "/Database.csv")[['Position', 'Job_Details', 'tokenized']].dropna()
 DB["tokenized"] = DB["tokenized"].apply(literal_eval)
 
 
@@ -38,7 +26,7 @@ keywords = cleanse(keyword, stem_words=False)
 
 print ("INPUT: {}".format(keywords))
 
-result = enhance_db(DB, keywords, recommender)
+result = enhance_db(DB, keywords)
 exclude = input("Exclude Irrelevant (comma seperated):, Enter if all valid")
 
 # target = result.iloc[[int(first), int(second), int(third)]]
@@ -64,14 +52,13 @@ def process_filter(target):
 target_doc = process_filter(target_doc)
 data_filter = divcats[recommender.division]
 
-
 data =data[data["div"].isin(data_filter)]
 
 print("내용을 기반으로 추천을 생성하는 중입니다...1~2분정도 소요될 수 있습니다")
 
 from LDAModel import train_lda, jsd, KL
 
-dictionary, corpus, lda = train_lda(data, num_topics=int(recommender.topicnum), passes=25)
+dictionary, corpus, lda = train_lda(data, num_topics=40, passes=25)
 doc_topic_dist = np.array([[tup[1] for tup in lst] for lst in lda[corpus]])
 query_bow = dictionary.doc2bow(target_doc)
 new_doc_distribution = np.array([tup[1] for tup in lda.get_document_topics(bow=query_bow)])

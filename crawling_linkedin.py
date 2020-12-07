@@ -15,17 +15,9 @@ from fake_useragent import UserAgent
 from tqdm.notebook import trange
 import time
 
-class JDcrawler_recommender():
-
-    def __init__(self, name, driverpath, options, driver):
+class recommender_class():
+    def __init__ (self, name):
         print("크롤러 초기 설정중...")
-        #self.ID = input("ID:")
-        #self.PASS = input("PASS: ")
-
-        self.driverpath = driverpath
-        self.options = options
-        self.driver = driver
-
         self.name = name
 
         print("안녕하세요 {}님, 당신의 직무, 커리어 관심도에 따른 수업 추천을 해드리겠습니다.".format(name))
@@ -34,14 +26,22 @@ class JDcrawler_recommender():
         print("3. 이 결과를 바탕으로 수업을 추천해드립니다")
         print("**모든 검색어는 영문으로 입력하셔야 합니다!**")
         self.division = input("Division 을 입력해주세요 (예: CTM, STP 등)")
-        self.topicnum = input("초기 토픽 갯수 설정 (25, 40, 50중 입력): ")
         self.keyword = input("관심있는 키워드를 입력해주세요 (없으면 Enter 입력)")
         self.keyword = ",".join(self.keyword.split()).lower()
 
     def load_processed(self):
-        processed = pd.read_csv(os.getcwd() + "/train_dataset" + "/processed_courses_data_{}topic.csv".format(self.topicnum))
-
+        processed = pd.read_csv(os.getcwd() + "/train_dataset" + "/processed_courses_data_40topic.csv")
         return processed
+
+class JDcrawler_recommender():
+
+    def __init__(self, driverpath, options, driver):
+
+        self.driverpath = driverpath
+        self.options = options
+        self.driver = driver
+
+
 
     def mock_user_agent(self):
         ua = UserAgent()

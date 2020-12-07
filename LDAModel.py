@@ -19,7 +19,7 @@ def train_lda(data, num_topics = 10, chunksize = 500, alpha ="auto", eta = "auto
     dictionary = corpora.Dictionary(data['tokenized'])
     corpus = [dictionary.doc2bow(doc) for doc in data['tokenized']]
     t1 = time.time()
-    lda = LdaModel(corpus=corpus, num_topics=num_topics, id2word=dictionary,
+    lda = LdaModel(corpus=corpus, num_topics=40, id2word=dictionary,
                    alpha=alpha, eta=eta, chunksize=chunksize, minimum_probability=0.0, passes=passes)
     t2 = time.time()
     print("Time to train LDA model on ", data.shape[0], "articles: ", (t2-t1)/60, "min")

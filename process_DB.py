@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
 import os
-from crawling_linkedin import JDcrawler_recommender
+import sys
 from datetime import datetime
 from tqdm import tqdm
-
 import nltk
 nltk.download('wordnet')
 from nltk.corpus import wordnet
@@ -64,15 +63,28 @@ def query(keywords, df):
     q = df.loc[df["Query_score"]>0.15].sort_values(by = "Query_score",ascending = False).drop("Query_score", axis = 1)
     return q
 
-def enhance_db(current_db, keywords, rec):
+def enhance_db(current_db, keywords):
     result = query(keywords, current_db)[:10].reset_index(drop = True)
     print(result[['Position', 'Job_Details']])
-
     react = input("Are result satisfying?: y/n")
 
     if react == "y":
         return result
     else:
+        from crawling_linkedin import JDcrawler_recommender
+        platform = sys.platform
+        if platform == "win32":
+            driverpath = os.getcwd() + "/chromedriver_win"
+        else:
+            driverpath = os.getcwd() + "/chromedriver"
+
+        from selenium import webdriver
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(driverpath, chrome_options=options)
+
+        rec = JDcrawler_recommender(driverpath, options, driver)
+
+
         rec.login_linkedin()
 
         print("관련된 JD 와 모집공고를 추가 조회합니...(시간이 걸릴 수 있습니다!)")
