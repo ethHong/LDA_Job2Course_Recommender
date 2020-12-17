@@ -145,7 +145,11 @@ print ("Relevant Recommendation: ")
 relevant = get_relevant_courses(course_net_matrix, result)
 print (relevant)
 relevant = pd.DataFrame({"Main": list(relevant.keys()), "Relevant": list(relevant.values())})
-relevant.to_excel(os.getcwd() + "/User_Test/{}Relevant_suggestion.xlsx".format(username), index=False)
-result.to_excel(os.getcwd() + "/User_Test/{}_suggestion.xlsx".format(username), index=False)
+
+export = input("Export result? y/n:" )
+if export == y:
+    relevant.to_excel(os.getcwd() + "/User_Test/{}Relevant_suggestion.xlsx".format(username), index=False)
+    result.to_excel(os.getcwd() + "/User_Test/{}_suggestion.xlsx".format(username), index=False)
+
 print("Relevant Positions: ")
 print(key_positions)
