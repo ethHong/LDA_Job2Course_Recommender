@@ -147,7 +147,7 @@ print (relevant)
 relevant = pd.DataFrame({"Main": list(relevant.keys()), "Relevant": list(relevant.values())})
 
 export = input("Export result? y/n:" )
-if export == y:
+if export == "y":
     relevant.to_excel(os.getcwd() + "/User_Test/{}Relevant_suggestion.xlsx".format(username), index=False)
     result.to_excel(os.getcwd() + "/User_Test/{}_suggestion.xlsx".format(username), index=False)
 
