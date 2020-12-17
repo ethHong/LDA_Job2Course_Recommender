@@ -34,7 +34,6 @@ class recommender_class():
         return processed
 
 class JDcrawler_recommender():
-
     def __init__(self, driverpath, options, driver):
 
         self.driverpath = driverpath

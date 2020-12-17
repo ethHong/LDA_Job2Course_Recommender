@@ -13,7 +13,7 @@ data = recommender.load_processed()
 
 data["tokenized"] = data["tokenized"].apply(literal_eval)
 
-from process_DB import dir, enhance_db, relevance_query, wn
+from process_DB import dir,query,  enhance_db, relevance_query, wn
 
 
 DB = pd.read_csv(dir + "/Database.csv")[['Position', 'Job_Details', 'tokenized']].dropna()
@@ -26,7 +26,7 @@ keywords = cleanse(keyword, stem_words=False)
 
 print ("INPUT: {}".format(keywords))
 
-result = enhance_db(DB, keywords)
+result = query(DB, keywords)
 exclude = input("Exclude Irrelevant (comma seperated):, Enter if all valid")
 
 # target = result.iloc[[int(first), int(second), int(third)]]
@@ -141,7 +141,6 @@ result["Details"] = details
 print ("Final Recommendation: ")
 print ("Main Recommendation: ")
 print (result)
-
 print ("Relevant Recommendation: ")
 relevant = get_relevant_courses(course_net_matrix, result)
 print (relevant)

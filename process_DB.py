@@ -56,55 +56,51 @@ def relevance_query(a, b, wn = wn):
         return 0
 
 
-def query(keywords, df):
+def query(df, keywords):
     tqdm.pandas()
     print ("Querying Result from DB...")
     df["Query_score"] = df["Position"].progress_apply(lambda x: relevance_query(x, keywords, wn))
     q = df.loc[df["Query_score"]>0.15].sort_values(by = "Query_score",ascending = False).drop("Query_score", axis = 1)
-    return q
+    print ("If the result is not successful, please proceed to enhabce DB")
+    result = q[:10].reset_index(drop = True)
+    print(result)
+    return result
 
 def enhance_db(current_db, keywords):
-    result = query(keywords, current_db)[:10].reset_index(drop = True)
-    print(result[['Position', 'Job_Details']])
-    react = input("Are result satisfying?: y/n")
-
-    if react == "y":
-        return result
+    from crawling_linkedin import JDcrawler_recommender
+    platform = sys.platform
+    if platform == "win32":
+        driverpath = os.getcwd() + "/chromedriver_win"
     else:
-        from crawling_linkedin import JDcrawler_recommender
-        platform = sys.platform
-        if platform == "win32":
-            driverpath = os.getcwd() + "/chromedriver_win"
-        else:
-            driverpath = os.getcwd() + "/chromedriver"
+        driverpath = os.getcwd() + "/chromedriver"
 
-        from selenium import webdriver
-        options = webdriver.ChromeOptions()
-        driver = webdriver.Chrome(driverpath, chrome_options=options)
+    from selenium import webdriver
+    options = webdriver.ChromeOptions()
+    driver = webdriver.Chrome(driverpath, chrome_options=options)
 
-        rec = JDcrawler_recommender(driverpath, options, driver)
+    rec = JDcrawler_recommender(driverpath, options, driver)
 
 
-        rec.login_linkedin()
+    rec.login_linkedin()
 
-        print("관련된 JD 와 모집공고를 추가 조회합니...(시간이 걸릴 수 있습니다!)")
-        keyword = " ".join(keywords.split())
-        result = rec.crawl(keyword, counts=20, how_many=3)
+    print("관련된 JD 와 모집공고를 추가 조회합니...(시간이 걸릴 수 있습니다!)")
+    keyword = " ".join(keywords.split())
+    result = rec.crawl(keyword, counts=20, how_many=3)
 
-        # refine result
+    # refine result
 
-        result[result.columns[0]] = result[result.columns[0]].apply(lambda x: cleanse(x, stem_words=False))
-        result[result.columns[1]] = result[result.columns[1]].apply(lambda x: cleanse(x, stem_words=True))
+    result[result.columns[0]] = result[result.columns[0]].apply(lambda x: cleanse(x, stem_words=False))
+    result[result.columns[1]] = result[result.columns[1]].apply(lambda x: cleanse(x, stem_words=True))
 
-        result.reset_index(drop=True, inplace=True)
-        result["tokenized"] = result["Job_Details"].apply(lambda x : x.split())
+    result.reset_index(drop=True, inplace=True)
+    result["tokenized"] = result["Job_Details"].apply(lambda x : x.split())
 
-        update_db = pd.concat([current_db, result])
-        update_db["Metatag"] = update_db["Metatag"].fillna("[]")
-        update_db = update_db.drop_duplicates(["Job_Details"])
-        update_db.drop_duplicates(["Job_Details"], keep = "last")
-        update_db.to_csv(dir + "/Database.csv", index = False)
-        print("DB를 업데이트했습니다")
+    update_db = pd.concat([current_db, result])
+    update_db["Metatag"] = update_db["Metatag"].fillna("[]")
+    update_db = update_db.drop_duplicates(["Job_Details"])
+    update_db.drop_duplicates(["Job_Details"], keep = "last")
+    update_db.to_csv(dir + "/Database.csv", index = False)
+    print("DB를 업데이트했습니다")
 
-        print(query(keywords, update_db)[:10].reset_index(drop = True))
-        return query(keywords, update_db)[:10].reset_index(drop = True)
+    print(query(keywords, update_db)[:10].reset_index(drop = True))
+    return query(keywords, update_db)[:10].reset_index(drop = True)
