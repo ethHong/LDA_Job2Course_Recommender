@@ -1,6 +1,6 @@
 # -Course-Recommentation-Project
 
-***This one is the initial version of this model. Since the final version is on user test and paper project, I temporarily turned the final version private
+***This one is the initial version of this model. Since the final version is on user test and paper project, I temporarily turned the final version private***
 
 ## Introduction
 * This model is designed to generate course recommendation for Yonsei University, UIC students. 
