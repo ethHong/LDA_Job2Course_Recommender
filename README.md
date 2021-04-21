@@ -1,6 +1,8 @@
 # -Course-Recommentation-Project
 
-## Inroduction
+***This one is the initial version of this model. Since the final version is on user test and paper project, I temporarily turned the final version private
+
+## Introduction
 * This model is designed to generate course recommendation for Yonsei University, UIC students. 
 * The model is based on LDA topic modeling, JS Divergence and TF-IDF score to compute documnet context similarity.
 * The model takes career keyword as an input (ex. data science, business strategy, marketing..) -the model query relevant Job Description from database, and then compute similarity of these Job Description and each courses to recommend the most relevant courses
