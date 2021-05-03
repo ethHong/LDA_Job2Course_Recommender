@@ -10,7 +10,7 @@
 ## How to use
 
 ### app.py
-* Requirements: **MysqlDB - Python connection / gensim / pickle / python **
+* Requirements: **MysqlDB - Python connection / gensim / pickle / nltk **
 * run app.py to run recommendation interface. It will run on local server
 * Enter name, and keyword of your career interest. Recommend putting industry / Positions / Skill - wise keywords
 * If you are Yonsei UIC student, put your major - if not, choose "None (Not a UIC Student)"
