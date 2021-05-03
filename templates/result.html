@@ -90,6 +90,9 @@
       .modal-body{
         text-align: left;
       }
+      .input-container-eng{
+        text-align:center;
+      }
     
     </style>
 
@@ -129,14 +132,12 @@
             <div class="table1" style="margin-top:100px;">
               <div class = "card-body1">
                 <P>Generated Recommendation are below.</p>
-                <p>Please rate each results based on each question</p>
               </div>
-              {% for question in questions %}
+  
                 <div class="card-body" id = "description" style="margin-top:100px; margin-bottom: 30px;">
                   <div class="input-container-eng">
-                    <h3>Question {{loop.index}}</h3>
-                    <h3>{{question}}</h3>
-                    <a style="font-size: large;">1: Not at all, 5: Very Much</a>
+                   
+                    <a style="font-size: large;">These are top 10 recommendations for your career</a>
                   </div>
                 </div>
               
@@ -182,15 +183,7 @@
                           </div>
                         </td>
                         <td>
-                          <div>
-                            <select name="submitted_rating_{{question}}" class = "input">
-                              <option value=5>5</option>
-                              <option value=4>4</option>
-                              <option value=3>3</option>
-                              <option value=2>2</option>
-                              <option value=1>1</option>
-                            </select>
-                          </div>
+                          
                         </td>
                     </tr>
 
@@ -198,11 +191,7 @@
                 </tbody>
               </table>   
             </div>
-            {% endfor %}
-          </div>
 
-          <div class = "button wrapper">
-            <button type="submit" class="btn btn-primary btn-block btn-large">&nbsp;&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;&nbsp;</button>
           </div>
         </form>
       
