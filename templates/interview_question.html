@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <!-- Favicon -->
+    <!--link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}"-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type = "text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+    <style>
+  
+      button {
+        width: 100%;
+        max-width: 240px;
+        height: 54px;
+        padding: 8px;
+        font-size: 0.8rem;
+        font-weight: 900;
+        color: #0e52b5;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+        position: absolute;
+        margin: 10px 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        }
+
+      .banner h1 {text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+      .card-body{
+        background-color: #efefef;
+        margin-top: 3%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 10%;
+        text-align: left;
+        font-size: 15px;
+        }
+      .card-body1{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+      .card-body2{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+    textarea{
+      margin-top: 3%;
+      margin-bottom: 3%;
+      z-index: 1;
+      resize: none
+    }
+    .button_wrapper{
+      margin-top: 3%;
+    }
+    </style>
+
+
+  </head>
+  <body>
+    <div class = "banner">
+      <h1>Comments on the recommendation experience</h1>
+    
+  </div>
+    <div class="card-body" id = "description" style="margin-top:100px">
+
+      <span class="text-center">Interview Question</span>
+      <div class="input-container-eng">
+        <li>Please leave comments about the course recommendation system</li>
+      </div>
+      <div class="input-container-kor">
+          <li>본 수업 추천 시스템에 대한 코멘트를 자유롭게 남겨주세요</li>
+      </div>
+
+    </div>
+    <div class = "card-body">
+    <h3>Comment</h3>
+
+    <center>
+      <form action="{{ url_for('submit_interview')}}"method="post">
+        <textarea id="txtComments" name="txtComments" placeholder="Your Answer Here" maxlength="500" cols="50" rows="10"></textarea>
+          
+        <div class = "button_wrapper">
+          <button type="submit" class="btn btn-primary btn-block btn-large">Submit Answers</button>
+        </div>
+      </form>
+    </center>
+    </div>
+    
+  </body>
+
+</html>

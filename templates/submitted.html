@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <!-- Favicon -->
+    <!--link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}"-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type = "text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+    <style>
+  
+      button {
+        width: 100%;
+        max-width: 240px;
+        height: 54px;
+        padding: 8px;
+        font-size: 0.8rem;
+        font-weight: 900;
+        color: #0e52b5;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+        position: absolute;
+        margin: 10px 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        }
+
+      .banner h1 {rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+
+      .card-body1{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+      .card-body2{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+
+    </style>
+
+
+  </head>
+  <body>
+
+    <div class="card">
+      <div class = "banner", >
+        <h1>Thanks for submission</h1>
+
+        <div class="input-container-eng" style="text-align:center;">
+          <li>The result would be used to improve the model</li>
+        </div>
+        
+        <div class = "button wrapper">
+          <a href="{{ url_for('home')}}" ><button class = "btn btn-primary btn-block btn-large">Back to Main</button></a>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Favicon -->
+    <!--link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}"-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type = "text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+    
+    
+    <style>
+      .button {
+        width: 100%;
+        max-width: 240px;
+        height: 54px;
+        padding: 8px;
+        font-size: 0.8rem;
+        font-weight: 900;
+        color: #0e52b5;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+        position: absolute;
+        margin: 10px 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        }
+
+      .banner h1 {rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+      .title1 h2 {rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
+      .card-body1{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+      .card-body2{
+      border-radius:3px;
+	  width: 100%;
+	  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+      }
+
+      .card-body{
+      background-color: #a3e4e0;
+      border-radius: 10px;
+      margin-top: 3%;
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-bottom: 10%;
+      text-align: left;
+      font-size: 15px;
+      }
+        
+      .input {
+      -webkit-appearance: menulist-button;
+      height: 3em;
+      width: 5em;
+      text-align: center;
+      font-size: large;
+    }
+    .formwrapper{
+        background-color: rgb(236, 236, 236);
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    </style>
+
+
+  </head>
+  <body>
+    
+    <script>
+      var modal = document.querySelector(".modal");
+      var trigger = document.querySelector(".trigger");
+      var closeButton = document.querySelector(".close-button");
+
+      function toggleModal() {
+          modal.classList.toggle("show-modal");
+      }
+
+      function windowOnClick(event) {
+          if (event.target === modal) {
+              toggleModal();
+          }
+      }
+      trigger.addEventListener("click", toggleModal);
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    </script>
+
+    <div class="card">
+      
+      <div class ="formwrapper">
+        <div class = "button wrapper">
+          <a href="{{url_for('home')}}" ><button class = "btn btn-primary btn-block btn-large">Back to Main</button></a>
+        </div>
+        <form action="{{ url_for('predict')}}"method="post">
+          <div class="card-body1">
+            <div class="table1" style="margin-top:100px;">
+              <div class = "title1">
+                <div class="card-body" id = "description" style="margin-top:100px; margin-bottom: 30px;">
+                    <h4>Stage 2: Choose Job description of your interest</h3>
+                    <span class="text-center">Select Three job descriptions</span>
+                    <li>These are job descriptions relevant to your keyword. Choose three of your interest</li>
+                    <li>해당 키워드로 쿼리된 Job Description입니다. 관심있는 세개를 고르세요</li>
+                </div>
+                
+              </div>
+
+              <table id="proxies" class="display table nowrap responsive" style="width: 100%">
+                <thead>
+                  <tr>
+                    {% for header in result_1[0].keys() %}
+                      <th style="text-align:center">{{header}}</th>
+                    {% endfor %}
+                    <th style="text-align:center">Check ones you are interested in</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in result_1%}
+                    <tr>
+                        <td>{{row["Position_raw"]}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{loop.index}}">
+                              View Job Details
+                            </button>
+                            
+                                                    <!-- Modal -->
+                          <div class="modal fade" id="exampleModal{{loop.index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">{{row["Position_raw"]}}</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  {{row["Job_Details_raw"]}}
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                    
+                        <td>
+                          <input type="checkbox" name="mycheckbox" value="{{loop.index}}">
+                        </td>
+                    </tr>
+
+                  {% endfor %}
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
+          <div class = "button wrapper">
+            <button type="submit" class="btn btn-primary btn-block btn-large">Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
