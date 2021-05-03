@@ -22,3 +22,4 @@
 ### **train_model.py** and **LDAModel_utils**
 * LDAModel_utils contain all the function to model LDA, and process text data
 * train_model.py train LDA based on optimal parameter - 40 topics and 25 passes, and export as pkl. file
+* If you want to train LDA model with custom settings, run train_model.py
