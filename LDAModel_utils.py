@@ -273,7 +273,7 @@ divterms = {  # Humanity 는 특히 구별을 못하고 있기 때문에 culture
     "IID": "Interactive Information Design",
     "ISM": "International Studies",
     "JCL": "Justice Civil Leadership, Law, Legal",
-    "LSB": " Life System Bio Engineering, Biochemical",
+    "LSB": "Life System Bio Engineering, Biochemical",
     "LST": "Life Science Technology, Biology",
     "MAT": "Mathmatics",
     "MEU": "Mechanical Engineering",
@@ -320,12 +320,8 @@ def query(df, keywords, tf_matrix):
     print("Querying Result from DB...")
     keywords = " ".join(gensim.utils.simple_preprocess(keywords, deacc=True))
     df["Query_score"] = tfidf_score(tf_matrix, keywords)
-    q = (
-        df.loc[df["Query_score"] > 0]
-        .sort_values(by="Query_score", ascending=False)
-        .drop("Query_score", axis=1)
-    )
+    q = df.loc[df["Query_score"] > 0.3].sort_values(by="Query_score", ascending=False)
     print("If the result is not successful, please proceed to enhabce DB")
     result = q[:10].reset_index(drop=True)
-    print(result)
-    return result
+    print(result[["Position", "Query_score"]])
+    return result.drop("Query_score", axis=1)
