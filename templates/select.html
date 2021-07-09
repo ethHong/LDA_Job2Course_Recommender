@@ -21,6 +21,11 @@
     <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
     
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="jQWCloud.js"></script>
+
     
     <style>
       .button {
@@ -97,10 +102,11 @@
       var modal = document.querySelector(".modal");
       var trigger = document.querySelector(".trigger");
       var closeButton = document.querySelector(".close-button");
-
       function toggleModal() {
           modal.classList.toggle("show-modal");
       }
+      
+      
 
       function windowOnClick(event) {
           if (event.target === modal) {
@@ -160,7 +166,14 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  {{row["Job_Details_raw"]}}
+                                  {{row["Keywords_wc"]}}
+                                  <script>
+                                    const myData = {{row["Keywords_wc"]}}
+                                    $("#wordCloud").jQWCloud({
+                                      words: myData
+                                      });
+                                  </script>
+                                  <div id = "wordCloud"></div>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

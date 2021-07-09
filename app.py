@@ -54,6 +54,8 @@ def select():
     DB["Job_Details"] = DB["Job_Details_cleanse"]
     DB["tokenized_raw"] = DB["Job_Details"].apply(lambda x: x.split())
     DB["tokenized"] = DB["Job_Details_tokenized"].apply(literal_eval)
+    DB["Keywords"] = DB["Keywords"].apply(literal_eval)
+    DB["Keywords_wc"] = DB["Keywords_wc"].apply(literal_eval)
 
     str_features = [str(x) for x in request.form.values()]
     print(str_features)
@@ -94,19 +96,22 @@ def select():
             key = key.loc[key["score"] >= 0.5]
             return key["word"].values
 
-        keywords = []
+        """keywords = []
         for tokens in target["tokenized"].values:
             keywords.append(get_keywords(tokens, tf_idf_list))
 
-        target["Keywords"] = keywords
+        target["Keywords"] = keywords"""
+        target["Keywords_only"] = target["Keywords"].apply(lambda x: (list(x.keys())))
         jobs = target[
             [
                 "Position",
                 "Position_raw",
                 "Job_Details_raw",
                 "Keywords",
+                "Keywords_only",
                 "Job_Details",
                 "tokenized",
+                "Keywords_wc",
             ]
         ]
 
@@ -117,15 +122,14 @@ def select():
             return np.array(new)
 
         jobs["Position"] = jobs["Position"].apply(lambda x: x.upper())
-        jobs["Keywords"] = jobs["Keywords"].apply(lambda x: up_all(x))
+        # jobs["Keywords"] = jobs["Keywords"].apply(lambda x: up_all(x))
 
         jobs["Position_raw"] = jobs["Position_raw"].apply(lambda x: x.upper())
-
         session["jobs"] = jobs
 
         JDs = []
-        for i in range(0, jobs[["Position_raw", "Job_Details_raw"]].shape[0]):
-            JDs.append(dict(jobs[["Position_raw", "Job_Details_raw"]].iloc[i]))
+        for i in range(0, jobs[["Position_raw", "Keywords_wc"]].shape[0]):
+            JDs.append(dict(jobs[["Position_raw", "Keywords_wc"]].iloc[i]))
         session["JDs"] = JDs
 
     return render_template("select.html", result_1=JDs)
@@ -358,6 +362,7 @@ def predict():
         "How are you satisfied with the recommendation?",
     ]
     session["questions"] = questions
+
     return render_template("result.html", result_1=result, questions=questions)
 
 
