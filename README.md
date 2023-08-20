@@ -9,7 +9,7 @@
 ## How to use
 
 ### app.py
-* Requirements: **MysqlDB - Python connection / gensim / pickle / nltk **
+* Requirements: **MysqlDB - Python connection / gensim / pickle / nltk**
 * run app.py to run recommendation interface. It will run on local server
 * Enter name, and keyword of your career interest. Recommend putting industry / Positions / Skill - wise keywords
 * If you are Yonsei UIC student, put your major - if not, choose "None (Not a UIC Student)"
@@ -21,8 +21,6 @@
 * LDAModel_utils contain all the function to model LDA, and process text data
 * train_model.py train LDA based on optimal parameter - 40 topics and 25 passes, and export as pkl. file
 * If you want to train LDA model with custom settings, run train_model.py
-
-![model](https://user-images.githubusercontent.com/43837843/116873208-3fa4e900-ac52-11eb-834c-3ed6bc63ead0.gif)
 
 ## About the project
 ### Motivation
