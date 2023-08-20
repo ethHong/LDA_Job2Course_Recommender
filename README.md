@@ -38,12 +38,9 @@ Purpose of proposed model is to recommend the most relevant document among exist
 
 ### Process of document topic matrix generation
 <img width="1320" alt="LDA_generation" src="https://github.com/ethHong/LDA_Job2Course_Recommender/assets/43837843/28149545-e744-4fbc-99d3-3d2ee2634ae8">
+
 * Pre-process 682 course description data by tokenizing and cleansing. 
-
 * Merge queried job description data into a single document, and pre-pocess by tokenizing and cleansing. 
-
 * Generate LDA model in terms of course description data. 
-
 * Create document-topic distribution matrix of course descriptions, denoted as C, which is a 682*40 matrix. 
-
 * Create document-topic distribution matrix of a job description, denoted as J, which is a 1*40 vector. 
