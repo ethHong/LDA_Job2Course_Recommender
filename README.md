@@ -1,5 +1,6 @@
 # LDA and Job Description based Course Recommendation System
 
+https://github.com/ethHong/LDA_Job2Course_Recommender/files/13197271/Poster_Sukhyun_Hong.pdf
 
 ## Introduction
 * The model is based on LDA topic modeling, JS Divergence and TF-IDF score to compute documnet context similarity.
