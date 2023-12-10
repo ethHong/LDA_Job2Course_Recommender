@@ -1,6 +1,9 @@
 # LDA and Job Description based Course Recommendation System
-
+## Question - Can we generate course recommendation based on job interesst?
 https://github.com/ethHong/LDA_Job2Course_Recommender/files/13197271/Poster_Sukhyun_Hong.pdf
+### Demo
+
+https://github.com/ethHong/LDA_Job2Course_Recommender/assets/43837843/77d5313b-4753-4dbe-9fd5-a0c785f9163e
 
 ## Introduction
 * The model is based on LDA topic modeling, JS Divergence and TF-IDF score to compute documnet context similarity.
